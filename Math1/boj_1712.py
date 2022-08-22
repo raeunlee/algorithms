@@ -10,8 +10,33 @@ A, B, C가 주어졌을 때, 손익분기점을 구하는 프로그램을 작성
 '''
 
 #첫째 줄에 A, B, C가 빈 칸을 사이에 두고 순서대로 주어진다. A, B, C는 21억 이하의 자연수이다.
+
+'''
 a, b, c = map(int,input().split())
+n = 0
+true = 1
 
+while true:
+    n = n+1
+    real_price = a + (b*n)
+    sell_price = c * n
+    
+    if real_price > sell_price:
+        continue
+    
+    else:
+        break 
+    
+print(n+1)
+'''    
 
+a, b, c = map(int, input().split())
+sol=0
+if b>=c:
+    print(-1)
+else:
+    sol = int(a/(c-b))
+    print(sol+1)
+    
 #첫 번째 줄에 손익분기점 즉 최초로 이익이 발생하는 판매량을 출력한다. 손익분기점이 존재하지 않으면 -1을 출력한다.
 
