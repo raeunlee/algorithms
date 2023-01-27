@@ -1,4 +1,4 @@
-import sys
+''' import sys
 
 # 정수 x를 넣는 push
 def push(x):
@@ -31,6 +31,48 @@ for _ in range(N):
 
     order = input_split[0]
 
+    if order == "push":
+        push(input_split[1])
+    elif order == "pop":
+        print(pop())
+    elif order == "size":
+        print(size())
+    elif order == "empty":
+        print(empty())
+    elif order == "top":
+        print(top()) '''
+        
+
+
+import sys
+def push(x):
+    stack.append(x)
+def pop():
+    if not stack:
+        return -1
+    else:
+        return stack.pop()  
+def size():
+    return len(stack)
+def empty():
+    if len(stack) == 0 :
+        return 1
+    else:
+        return 0
+def top():
+    if not stack:
+        return -1
+    else:
+        return stack[-1]
+
+# 첫째 줄에 주어지는 N
+N = int(sys.stdin.readline().rstrip()) #rstrip=공백제거
+stack = []
+
+# N개에 줄에 주어지는 명령들
+for _ in range(N):
+    input_split = sys.stdin.readline().rstrip().split()
+    order = input_split[0]
     if order == "push":
         push(input_split[1])
     elif order == "pop":
