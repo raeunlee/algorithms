@@ -1,19 +1,20 @@
-import sys
 from collections import deque
-L = deque()
-n = int(sys.stdin.readline().rstrip())
 
+n = int(input())
 for i in range(n):
-    N,M = map(int, sys.stdin.readline().split())
-    L.append(sys.stdin.readline().split())
-    print(*L)
+    N,M = map(int, input().split())
+    L = deque(list(map(int, input().split())))
+    idx = deque(list(range(N)))
+    cnt = 0
     
-    for j in range(N):
-        if L[j] < L[j+1]:
-            L.append(L.popleft())
-            print(L)
-        elif L[j] == L[M]:
-            L.append(L.popleft())
-            print(L)
+    while L:
+        if L[0] == max(L):
+            cnt += 1
+            L.popleft()
+            
+            pop_idx = idx.popleft()
+            if pop_idx == M:
+                print(cnt)
         else:
-            break
+            L.append(L.popleft())
+            idx.append(idx.popleft())
