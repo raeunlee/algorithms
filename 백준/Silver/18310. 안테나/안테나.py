@@ -1,0 +1,5 @@
+n = int(input())
+zip = list(map(int, input().split()))
+zip.sort()
+a = int((n-1)/2)
+print(zip[a])
