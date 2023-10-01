@@ -1,15 +1,8 @@
-WITH RECURSIVE cte AS (
-    SELECT 0 AS num
-    UNION ALL
-    SELECT num+1
-    FROM cte
-    WHERE num < 23
-)
+SET @HOUR := -1; # 변수선언 및 대입 
 
-SELECT cte.num, IFNULL(a.입양횟수, 0)
-FROM cte
-LEFT JOIN (SELECT HOUR(datetime) 시간대, COUNT(*) 입양횟수
-           FROM animal_outs
-           GROUP BY 시간대
-           ORDER BY 시간대) a
-ON cte.num = a.시간대;
+SELECT (@HOUR := @HOUR +1) AS HOUR, #변수 출력 
+(SELECT COUNT(*) 
+ FROM ANIMAL_OUTS 
+ WHERE HOUR(DATETIME) = @HOUR) AS COUNT 
+FROM ANIMAL_OUTS
+WHERE @HOUR < 23
