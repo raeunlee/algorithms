@@ -6,9 +6,9 @@ WITH value AS (
       WHEN DATEDIFF(end_date, start_date) + 1 >= 30 THEN '30일 이상'
       WHEN DATEDIFF(end_date, start_date) + 1 >= 7 THEN '7일 이상'
       ELSE 'NONE' END AS duration_type
-FROM car_rental_company_rental_history AS his
-INNER JOIN car_rental_company_car AS car ON car.car_id = his.car_id
-WHERE car.car_type = '트럭')   
+        FROM car_rental_company_rental_history AS his
+        JOIN car_rental_company_car AS car ON car.car_id = his.car_id
+        WHERE car.car_type = '트럭')   
 
 
 
