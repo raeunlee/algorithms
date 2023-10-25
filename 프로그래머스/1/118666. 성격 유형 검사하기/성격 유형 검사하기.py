@@ -11,33 +11,26 @@ def solution(survey, choices):
             continue
             
     print(mydict)
+
     
-    if mydict.get('R') > mydict.get('T'):
+    if mydict.get('R') >= mydict.get('T'):
         answer += 'R'
-    elif mydict.get('R') < mydict.get('T'):
+    else:
         answer += 'T'
-    else:
-        answer += 'R'
-    
-    if mydict.get('C') > mydict.get('F'):
+        
+    if mydict.get('C') >= mydict.get('F'):
         answer += 'C'
-    elif mydict.get('C') < mydict.get('F'):
+    else:
         answer += 'F'
-    else:
-        answer += 'C'
         
-    if mydict.get('J') > mydict.get('M'):
+    if mydict.get('J') >= mydict.get('M'):
         answer += 'J'
-    elif mydict.get('J') < mydict.get('M'):
+    else:
         answer += 'M'
-    else:
-        answer += 'J'
         
-    if mydict.get('A') > mydict.get('N'):
+    if mydict.get('A') >= mydict.get('N'):
         answer += 'A'
-    elif mydict.get('A') < mydict.get('N'):
-        answer += 'N'
     else:
-        answer += 'A'
+        answer += 'N'
 
     return answer
