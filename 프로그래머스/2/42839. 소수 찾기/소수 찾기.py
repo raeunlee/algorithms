@@ -1,26 +1,31 @@
-from itertools import permutations
+import itertools
+import math 
 
-def checkPrime(n):
-    if n < 2:                                 
+def is_prime(num):
+    if num < 2:
         return False
-            
-    for i in range(2, int(n**0.5)+1):
-        if n % i == 0:
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
             return False
     return True
-                   
-def solution(numbers):
-    answer = []
-    numbers = list(numbers)
-    temp = []
-    
-    for i in range(1, len(numbers)+1):
-        temp += list(permutations(numbers, i)) 
-    num = [int(''.join(t)) for t in temp] 
-    
-    for i in num:
-        if checkPrime(i):
-            answer.append(i)
-    
-    return len(set(answer))
 
+def solution(numbers):
+    answer = 0
+    tmp = set()  # 중복 제거를 위해 set 사용
+    
+    # 자릿수별 순열 구해주기
+    for i in range(1, len(numbers) + 1):       
+        nPr = itertools.permutations(numbers, i)
+        for p in nPr:
+            tmp.add(int(''.join(p)))  # 중복 제거 후 set에 추가
+    
+    tmp = list(tmp)
+    print(tmp)
+
+    # 소수인지 아닌지 판별하기 
+    for t in tmp:
+        t = int(t)
+        if is_prime(t):
+            answer += 1
+            print(t)
+    return answer
