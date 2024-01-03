@@ -1,22 +1,20 @@
 def solution(progresses, speeds):
-   
-    result = []  # 각 배포마다 완료된 작업 수를 저장할 리스트
+    answer = []
+    count = 0 
+    
+    while progresses: # 작업이 남아 있을 때
+        if progresses[0] + speeds[0] >= 100: # 하나 개발 완료
+            progresses.pop(0)
+            speeds.pop(0)
+            count += 1 # 배포하는 카운트
+            
+        else: # 개발 다 안됐을 경우
+            if count > 0: #count가 0이 넘으면
+                answer.append(count) 
+                count = 0
+            for i in range(len(progresses)):
+                progresses[i] += speeds[i]
 
-    while speeds:
-        # 모든 작업 1일씩 업데이트
-        for idx, speed in enumerate(speeds):
-            progresses[idx] += speed
-            print(progresses[idx])
-        count = 0 
-
-        # 작업물이 아직 있고, 맨 앞 작업물이 100일때
-        while progresses and progresses[0] >= 100:
-            # 맨 앞 작업물과 해당 속도 삭제 
-            del progresses[0], speeds[0]
-            count += 1 # 카운트 추가 
-       
-        # 배포될 작업 수를 결과 리스트에 추가
-        if count > 0:
-            result.append(count)
-
-    return result
+    # 맨 마지막꺼는 따로 카운트를 append해줌
+    answer.append(count)
+    return answer
