@@ -12,23 +12,24 @@ def bfs(start, visited, graph ):
                 q.append(i)
                 visited[i] = True
     return cnt # cnt return 
-        
-
+    
 
 def solution(n, wires):
     answer = n
     graph = [[] for _ in range(n+1)]  
+    
+    # 그래프 만들어 주기
     for a, b in wires:
         graph[a].append(b)
         graph[b].append(a)
     
-    print(graph)
-    
+    # 각 전선의 시작점과 끝점 
     for start, end in wires:
-        visited = [False] * (n+1)
-        visited[end] = True
+        visited = [False] * (n+1) 
+        visited[end] = True # 하나씩 끊겼다고 가정한다
         result = bfs(start, visited, graph)
-        if abs(result - ( n - result)) < answer:
-            answer = abs(result - (n - result))
+        # 전체노드에서 방문한 노드의 개수를 뺀 값과 방문한 노드의 개수 차이의 절댓값을 구함
+        # 최솟값 갱신
+        answer = min(answer, abs(result - (n - result)))
             
     return answer
