@@ -1,36 +1,22 @@
 def solution(answers):
-    answer = []
-    a = [1, 2, 3, 4, 5]
-    b = [2, 1, 2, 3, 2, 4, 2, 5]
-    c = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
-    
-    aa = 0
-    bb = 0
-    cc = 0
-    print(a [ (10 + 1) %  8 -1])
+    answer = []    
+    no1 = [1,2,3,4,5]
+    no2 = [2,1,2,3,2,4,2,5]
+    no3 = [3,3,1,1,2,2,4,4,5,5]  
+    scores = [0, 0, 0]
+
     for i in range(len(answers)):
-        if a[(i + 1) % len(a) - 1] == answers[i]:
-            aa += 1
-        if b[(i + 1) % len(b) - 1] == answers[i]:
-            bb += 1
-        if c[(i + 1) % len(c) - 1] == answers[i]:
-            cc += 1
-    
-    dict = {'1' : aa, '2': bb, '3':cc}
-    
-    max = 0
-    for items in dict:
-        if dict[items] >= max:
-            if dict != 0:
-                max = dict[items]
-            
-    for items in dict:
-        if dict[items] == max:
-            if items == '1':
-                answer.append(1)
-            if items == '2':
-                answer.append(2)
-            if items == '3':
-                answer.append(3)
-            
+        if no1[i % 5] == answers[i]:
+            scores[0] += 1
+        if no2[i % 8] == answers[i]:
+            scores[1] += 1
+        if no3[i % 10] == answers[i]:
+            scores[2] += 1
+
+    max_score = max(scores)
+
+    for i, score in sorted(enumerate(scores, start=1), key=lambda x: x[1], reverse=True):
+        if score == max_score:
+            answer.append(i)
+
     return answer
