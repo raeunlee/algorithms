@@ -15,8 +15,12 @@ def solution(answers):
 
     max_score = max(scores)
 
-    for i, score in sorted(enumerate(scores, start=1), key=lambda x: x[1], reverse=True):
-        if score == max_score:
-            answer.append(i)
+    # for i, score in sorted(enumerate(scores, start=1), key=lambda x: x[1], reverse=True):
+    #     if score == max_score:
+    #         answer.append(i)
+    for idx, s in enumerate(scores):
+        if s == max(scores):
+            answer.append(idx+1)
+
 
     return answer
