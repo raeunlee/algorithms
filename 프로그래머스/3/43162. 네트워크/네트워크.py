@@ -1,20 +1,39 @@
-def dfs(n, computers, visited):
-    visited[n] = True #현재 컴퓨터 방문처리
-    tmp = len(computers)
-    #현재 컴퓨터랑 연결된 컴퓨터들을 탐색
-    for i in range(tmp):
-        print(computers[n][i])
-        if computers[n][i] == 1 and not visited[i]: #방문하지 않고, 연결되어 있다면?
-            print("y")
-            dfs(i, computers, visited) #다시 반복한다
+from collections import deque
 
 def solution(n, computers):
-    answer = 0
-    visited = [False for _ in range(n)] # 방문 체크 배열
     
-    for i in range(n): #네트워크 하나씩 탐색 
-        if not visited[i]: #해당 네트워크를 방문한적이 없다면
-            print(i)
-            dfs(i, computers, visited) # 재귀시작
-            answer += 1            
-    return answer
+    graph = [[] for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(len(computers[i])):
+            if computers[i][j] == 1 and i != j: # i, j 가 연결되어 있음
+                graph[i].append(j)
+    
+    print(graph)
+    
+    # 전체 다 방문전으로 처리
+    visited = [False] * n
+    
+    q = deque()
+
+    def bfs(start):
+        q.append(start)
+        visited[start] = True
+        while q:
+            now = q.popleft()
+            for nxt in graph[now]:
+                if not visited[nxt]:
+                    visited[nxt] = True
+                    q.append(nxt)
+        
+    count = 0
+    
+    for i in range(n):
+        if not visited[i]:
+            bfs(i)
+            count += 1
+   
+    print(count)
+    return count
+            
+        
