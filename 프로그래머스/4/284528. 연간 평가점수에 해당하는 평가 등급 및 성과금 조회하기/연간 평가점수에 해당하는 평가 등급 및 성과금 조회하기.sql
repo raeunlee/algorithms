@@ -1,23 +1,25 @@
 -- 코드를 작성해주세요
-SELECT E.EMP_NO, E.EMP_NAME, 
+
+with tmp as(
+    select E.EMP_NO, E.EMP_NAME,
+        case 
+            when avg(G.SCORE) >= 96 then 'S'
+            when avg(G.SCORE) >= 90 then 'A'
+            when avg(G.SCORE) >= 80 then 'B'
+            else 'C'
+        end as GRADE,
+        
+        case
+            when avg(G.SCORE) >= 96 then E.SAL * 0.2
+            when avg(G.SCORE) >= 90 then E.SAL * 0.15
+            when avg(G.SCORE) >= 80 then E.SAL * 0.10
+            else SAL * 0 
+        end BONUS
     
-    CASE
-    WHEN AVG(SCORE) >= 96 THEN 'S'
-    WHEN AVG(SCORE) >= 90 THEN 'A'
-    WHEN AVG(SCORE) >= 80 THEN 'B'
-    ELSE 'C'
-    END 'GRADE',
-    
-    CASE
-    WHEN AVG(SCORE) >= 96 THEN (E.SAL * 0.2)
-    WHEN AVG(SCORE) >= 90 THEN (E.SAL * 0.15)
-    WHEN AVG(SCORE) >= 80 THEN (E.SAL * 0.1)
-    ELSE 0
-    END 'BONUS'
-    
-    
-FROM HR_EMPLOYEES AS E
-JOIN HR_DEPARTMENT AS D ON E.DEPT_ID = D.DEPT_ID
-JOIN HR_GRADE AS G ON E.EMP_NO = G.EMP_NO
-GROUP BY EMP_NO
-ORDER BY E.EMP_NO ASC
+    from HR_GRADE G JOIN HR_EMPLOYEES E ON E.EMP_NO = G.EMP_NO
+    group by E.EMP_NO 
+)
+
+
+select *
+from TMP
