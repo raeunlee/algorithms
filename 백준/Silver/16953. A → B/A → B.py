@@ -1,29 +1,25 @@
-# A -> B
-from collections import deque
+a,b = map(int, input().split())
 
-a, b = map(int, input().split())
-q = deque()
-q.append([a,0]) # 현재 숫자와 연산 횟수
-visited = set()
-ans = -1
-while q:
-    now, cnt = q.popleft()
+def dfs(now,count, visited):
     
     if now == b:
-        ans = cnt
-        break
-        
-    mul = now * 2
-    if mul not in visited and mul <= b * 2 :
-        q.append([mul, cnt+1])
-        visited.add(mul)
+        return count
+    
+    if now > b or now in visited:
+        return -1
+    
+    visited.add(now)
+    
+    x = dfs(now * 2, count+1, visited)
+    y = dfs(int(str(now) + "1"), count + 1, visited)
 
-    add =  now * 10 + 1
-    if add not in visited and add <= b * 2:
-        q.append([add, cnt + 1])
-        visited.add(add)
-
-if ans >= 0:
-    print(ans + 1)
-else:   
-    print(ans)
+    if x != -1:
+        return x
+    if y != -1:
+        return y
+    
+    return -1
+visited = set()
+result = dfs(a, 1, visited)
+print(result)
+    
